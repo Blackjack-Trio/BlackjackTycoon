@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using BlackjackTycoon.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using BlackjackTycoon.Models;
 
 namespace BlackjackTycoon
 {
@@ -37,7 +38,7 @@ namespace BlackjackTycoon
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.Configure<IdentityOptions>(options =>
