@@ -10,5 +10,6 @@ namespace BlackjackTycoon.Models
     {
         public string Name { get; set; }
         public int Bankroll { get; set; }
+        
     }
 }

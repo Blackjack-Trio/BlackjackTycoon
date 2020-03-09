@@ -39,7 +39,8 @@ namespace BlackjackTycoon
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders(); // Chase added this as this method provides default configuration to support operations that require a token (such as changing a password).
 
             services.Configure<IdentityOptions>(options =>
             {
