@@ -52,6 +52,22 @@ body {
     display: inline-block;
 }
 
-.choose-games {
-    margin: 0 auto;
+.choose-game {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.choose-game > div {
+    width: 250px;
+    height: 150px;
+    border-radius: 25px;
+    border: 2px solid gray;
+    margin: 75px 30px 75px 30px;
+    padding: 25px;
+}
+
+.user-info {
+    border-bottom: 1px solid gray;
+    margin-top: 50px;
 }
