@@ -29,6 +29,13 @@ namespace BlackjackTycoon.Controllers
             return View();
         }
 
+        public IActionResult Games()
+        {
+            ViewBag.Games = new List<Game>();
+            ViewBag.Games.Add(new CoinflipGame());
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

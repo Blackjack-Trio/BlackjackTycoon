@@ -51,3 +51,7 @@ body {
     word-wrap: normal;
     display: inline-block;
 }
+
+.choose-games {
+    margin: 0 auto;
+}
