@@ -81,5 +81,14 @@ namespace BlackjackTycoon.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Bank()
+        {
+            ViewBag.userId = _userManager.GetUserId(HttpContext.User);
+            ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
+            ViewBag.User = user;
+            return View(user);
+        }
+        
     }
 }
