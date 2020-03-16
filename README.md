@@ -5,6 +5,6 @@ Solution Name:      BlackjackTycoon
 Version:            ASP.NET Core 2.1
 Template:           Web Application (Model-View-Controller)
 Authentication:     Individual User Accounts (Identity)
-Slack:              <a href="sccpcgroup.slack.com" target="_blank">sccpcgroup.slack.com</a>
+Slack:              <a href="https://www.sccpcgroup.slack.com" target="_blank">https://www.sccpcgroup.slack.com</a>
 Trello:             <a href="https://trello.com/b/563n3MCG/blackjacktycoon" target="_blank">https://trello.com/b/563n3MCG/blackjacktycoon</a>
 </pre>
