@@ -57,11 +57,17 @@ namespace BlackjackTycoon.Controllers
             ViewBag.Games.Add(new CoinflipGame());
             ViewBag.Games.Add(new CoinflipGame());
 
-            return View(user);
+            return View();
         }
 
-        public IActionResult GameSetup()
+        public IActionResult GameSetup(Game newGame)
         {
+            /* Get the current logged in user. */
+            ViewBag.userId = _userManager.GetUserId(HttpContext.User);
+            ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
+            ViewBag.User = user;
+            ViewBag.Game = newGame;
+
             return View();
         }
 
