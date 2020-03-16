@@ -1,0 +1,31 @@
+﻿@model BlackjackTycoon.Models.Bank
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>BlackjactTycoon Bank</title>
+</head>
+<body>
+    <h4>Name: @ViewBag.User.Name</h4>
+    <p> Hello Blackjack Tycoon, you may borrow money from our bank in amounts of $1,000, $500, $100 or $50.</p>
+    <form asp-action="BankForm" method="post">
+        <p>
+            <label>Pick a loan amount</label>
+            <select asp-for="Loan">
+                <option value="">Please select amount to borrow.</option>
+                <option value="1000">$1,000</option>
+                <option value="500">$500</option>
+                <option value="100">$100</option>
+                <option value="50">$50</option>
+            </select>
+            <button type="submit">Submit Loan</button>
+        </p>
+
+    </form>
+</body>
+</html>
+
+
