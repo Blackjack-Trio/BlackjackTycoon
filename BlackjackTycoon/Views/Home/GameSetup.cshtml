@@ -1,13 +1,55 @@
-﻿
+﻿@model GameSetupViewModel
 @{
-    ViewData["Title"] = "Cashier";
+    ViewData["Title"] = "Play";
 }
 
-<h2>You approach the cashier...</h2>
-<p>They give you a cordial greeting and ask you how much money you'd like to cash in for chips.</p>
-<p>You look in your wallet. You have: @ViewBag.User.Bankroll</p>
-<form method="post" action="">
+<div class="user-info">
+    <h4>Name: @ViewBag.User.Name</h4>
+    <h4>Bankroll: $@ViewBag.User.Bankroll</h4>
+</div>
 
-</form>
+<div class="game-setup">
+    @foreach (var game in ViewBag.Games)
+     {
+    <div class="col-md-3 col-xs-3">
+        <span class="game-name">@game.Name</span>
+        <br />
+        <span class="game-rules">
+            @foreach (var rule in game.Rules)
+            {
+                @rule
+            }
+        </span>
+        <br />
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_@game.Name">
+            Play
+        </button>
+        <form asp-controller="@game.Name" asp-action="Index" method="post">
+            <div class="modal fade" id="modal_@game.Name" tabindex="-1" role="dialog">
+                <div class="vertical-alignment-helper">
+                    <div class="modal-dialog vertical-align-center" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="modal_@game.Name">Game Setup</h3>
+                            </div>
+                            <div class="modal-body">
+                                <input asp-for="GameName" value="@game.Name" />
+                                <div class="alert alert-info"><strong>Note:</strong> This is <strong>NOT</strong> a bet. This is how much money you're taking to the game.</div>
 
-<a asp-area="" asp-controller="@ViewBag.Game.Name" asp-action="Start"><input type="button" class="btn btn-default" value="Play" /></a>
+                                <div class="form-group">
+                                    <label for="PlayingMoney">How much money do you want to play with?</label>
+                                    <input asp-for="PlayingMoney" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-primary" value="Play" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+     }
+</div>

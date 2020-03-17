@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using BlackjackTycoon.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace BlackjackTycoon.Controllers
 {
@@ -40,7 +41,7 @@ namespace BlackjackTycoon.Controllers
 
         /* Using "Authorize" you can force the user to login before viewing this page. */
         [Authorize]
-        public IActionResult ChooseGame()
+        public IActionResult GameSetup()
         {
             /* Get the current logged in user. */
             ViewBag.userId = _userManager.GetUserId(HttpContext.User);
@@ -49,24 +50,9 @@ namespace BlackjackTycoon.Controllers
 
             /* Creating list of games to loop through and display on "ChooseGame" view. */
             ViewBag.Games = new List<Game>();
-            /* 6 games for testing purposes */
             ViewBag.Games.Add(new CoinflipGame());
-            ViewBag.Games.Add(new CoinflipGame());
-            ViewBag.Games.Add(new CoinflipGame());
-            ViewBag.Games.Add(new CoinflipGame());
-            ViewBag.Games.Add(new CoinflipGame());
-            ViewBag.Games.Add(new CoinflipGame());
-
-            return View();
-        }
-
-        public IActionResult GameSetup(Game newGame)
-        {
-            /* Get the current logged in user. */
-            ViewBag.userId = _userManager.GetUserId(HttpContext.User);
-            ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
-            ViewBag.User = user;
-            ViewBag.Game = newGame;
+            ViewBag.Games.Add(new BlackjackGame());
+            ViewBag.Games.Add(new PokerGame());
 
             return View();
         }

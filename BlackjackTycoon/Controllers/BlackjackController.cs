@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlackjackTycoon.Controllers
 {
-    public class CoinflipController : Controller
+    public class BlackjackController : Controller
     {
         public IActionResult Index(GameSetupViewModel model)
         {

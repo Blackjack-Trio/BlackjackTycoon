@@ -37,6 +37,32 @@ body {
 }
 
 
+/* I took this code from: https://stackoverflow.com/questions/50579924/bootstrap-modal-not-showing-properly-centered */
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width: inherit;
+    max-width: inherit; /* For Bootstrap 4 - to avoid the modal window stretching full width */
+    height: inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+
 
 /* CUSTOM CSS */
 
@@ -52,13 +78,13 @@ body {
     display: inline-block;
 }
 
-.choose-game {
+.game-setup {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
 }
 
-.choose-game > div {
+.game-setup > div {
     width: 250px;
     height: 150px;
     border-radius: 25px;
@@ -71,3 +97,8 @@ body {
     border-bottom: 1px solid gray;
     margin-top: 50px;
 }
+
+.modal-footer {
+    border: none;
+}
+
