@@ -8,8 +8,9 @@ namespace BlackjackTycoon.Models
     public class Card
     {
         // These large dictionaries are simply used to list out all the possible titles and values this card could be.
+        // The Ranks and Suits are static because we want to be able to access these things without making a card instance.
 
-        private readonly Dictionary<string, string> Ranks = new Dictionary<string, string>()
+        public static Dictionary<string, string> Ranks = new Dictionary<string, string>()
         {
             {"ace", "Ace"},
             {"two", "Two"},
@@ -26,7 +27,7 @@ namespace BlackjackTycoon.Models
             {"king", "King"}
         };
 
-        private readonly Dictionary<string, string> Suits = new Dictionary<string, string>()
+        public static Dictionary<string, string> Suits = new Dictionary<string, string>()
         {
             {"hearts", "Hearts"},
             {"diamonds", "Diamonds"},
