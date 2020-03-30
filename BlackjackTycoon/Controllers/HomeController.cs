@@ -68,13 +68,26 @@ namespace BlackjackTycoon.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        // You must be logged in to get a loan from the bank.
+        [Authorize]
         public IActionResult Bank()
         {
+            /* Get the current logged in user. */
             ViewBag.userId = _userManager.GetUserId(HttpContext.User);
             ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
             ViewBag.User = user;
-            return View(user);
+
+            // Create a bank that the user goes to
+            ViewBag.Bank = new Bank("The Rich People's Bank of Richness");
+            return View();
         }
         
+        public IActionResult Borrow()
+        {
+            // This is where we make changes in the database...
+            // We need to add money to the user's bankroll
+            // We need to add money to the user's total borrowed (keeping track of how much they've borrowed)
+            return View("Index");
+        }
     }
 }

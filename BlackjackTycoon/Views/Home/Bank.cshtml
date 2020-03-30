@@ -1,29 +1,21 @@
-﻿@model BlackjackTycoon.Models.Bank
-@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@{
+    ViewData["Title"] = "Bank";
 }
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width"/>
-    <title>BlackjactTycoon Bank</title>
+    <title>Bank</title>
 </head>
 <body>
-    <h4>Name: @ViewBag.User.Name</h4>
-    <p> Hello Blackjack Tycoon, you may borrow money from our bank in amounts of $1,000, $500, $100 or $50.</p>
-    <form asp-action="BankForm" method="post">
-        <p>
-            <label>Pick a loan amount</label>
-            <select asp-for="Loan">
-                <option value="">Please select amount to borrow.</option>
-                <option value="1000">$1,000</option>
-                <option value="500">$500</option>
-                <option value="100">$100</option>
-                <option value="50">$50</option>
-            </select>
-            <button type="submit">Submit Loan</button>
-        </p>
-
+    <h2>Welcome to @ViewBag.Bank.Name!</h2>
+    <p>You approach the bank teller. Here are the loans they are willing to offer...</p>
+    <form asp-action="Borrow" method="post">
+        @foreach (decimal loanOption in ViewBag.Bank.LoanOptions)
+        {
+            <p><input type="radio" value="@loanOption" />&nbsp;@loanOption</p>
+        }
+        <input type="submit"/>
     </form>
 </body>
 </html>

@@ -41,7 +41,7 @@ namespace BlackjackTycoon.Models
         {
             if (Cards.Count >= 1)
             {
-                // Grabbing the first card the deck's card list, returning it, and destroying it from the deck
+                // Grabbing the first card in the deck's card list, returning it, and destroying it from the deck
                 Card drawnCard = Cards[0];
                 Cards.RemoveAt(0);
                 return drawnCard;
