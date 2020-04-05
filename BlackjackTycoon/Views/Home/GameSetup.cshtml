@@ -24,7 +24,7 @@
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_@game.Name">
             Play
         </button>
-        <form asp-controller="@game.Name" asp-action="Index" method="post">
+        <form asp-controller="Game" asp-action="@game.Name" method="post">
             <div class="modal fade" id="modal_@game.Name" tabindex="-1" role="dialog">
                 <div class="vertical-alignment-helper">
                     <div class="modal-dialog vertical-align-center" role="document">
