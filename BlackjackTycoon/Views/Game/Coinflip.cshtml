@@ -1,19 +1,40 @@
 ﻿
 @{
-    ViewData["Title"] = "PlayCoinflip";
+    ViewData["Title"] = "Coinflip";
 }
 
-<h1>Welcome to coinflip!</h1>
-<p>To play all you have to do is pick what side you want to bet on and tell us how much you want to bet!</p>
-<br />
-@if (ViewBag.test != null)
-{
-    <div class="collection-data">
-        <p>@ViewBag.test</p>
-        test
-    </div>
-}
-<form asp-controller="Game" asp-action="PlayCoinflip" method="post">
+<div class="user-info">
+    <h4>Name: @ViewBag.User.Name</h4>
+    <h4>Bankroll: $@ViewBag.User.Bankroll</h4>
+</div>
+
+<div class="game-info">
+    <h1>Welcome to Coinflip!</h1>
+    <p>Pick either "Heads" or "Tails" and place a bet to play!</p>
+</div>
+
+<div class="game-results">
+    @if (ViewBag.LastGame == true)
+    {
+        <p class="alert alert-success">@ViewBag.GameResults</p>
+    }
+    else if (ViewBag.LastGame == false)
+    {
+        <p class="alert alert-danger">@ViewBag.GameResults</p>
+    }
+</div>
+
+<div class="game-errors">
+    @if (ViewBag.Errors != null)
+    {
+        @foreach (var error in ViewBag.Errors)
+        {
+            <p class="alert alert-danger">@error</p>
+        }
+    }
+</div>
+
+<form asp-controller="Game" asp-action="Coinflip" method="post">
     <div class="form-group">
         <input type="radio" name="coin" value="heads" /> <label>Heads</label>
         <br />
@@ -24,6 +45,7 @@
         <input type="text" name="bet" class="form-control" />
     </div>
     <div class="form-group">
-        <input class="btn btn-primary" type="submit" name="Play" value="Play" />
+        <input type="hidden" name="play" value=true />
+        <input class="btn btn-primary" type="submit" value="Play" />
     </div>
 </form>

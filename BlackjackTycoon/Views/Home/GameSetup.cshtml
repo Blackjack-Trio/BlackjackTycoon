@@ -1,5 +1,4 @@
-﻿@model GameSetupViewModel
-@{
+﻿@{
     ViewData["Title"] = "Games";
 }
 
@@ -11,45 +10,19 @@
 <div class="game-setup">
     @foreach (var game in ViewBag.Games)
      {
-    <div class="col-md-3 col-xs-3">
-        <span class="game-name">@game.Name</span>
-        <br />
-        <span class="game-rules">
-            @foreach (var rule in game.Rules)
-            {
-                @rule
-            }
-        </span>
-        <br />
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal_@game.Name">
-            Play
-        </button>
-        <form asp-controller="Game" asp-action="@game.Name" method="post">
-            <div class="modal fade" id="modal_@game.Name" tabindex="-1" role="dialog">
-                <div class="vertical-alignment-helper">
-                    <div class="modal-dialog vertical-align-center" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="modal_@game.Name">Game Setup</h3>
-                            </div>
-                            <div class="modal-body">
-                                <input asp-for="GameName" value="@game.Name" />
-                                <div class="alert alert-info"><strong>Note:</strong> This is <strong>NOT</strong> a bet. This is how much money you're taking to the game.</div>
-
-                                <div class="form-group">
-                                    <label for="PlayingMoney">How much money do you want to play with?</label>
-                                    <input asp-for="PlayingMoney" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-primary" value="Play" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
+        <div class="col-md-3 col-xs-3">
+            <span class="game-name">@game.Name</span>
+            <br />
+            <span class="game-rules">
+                @foreach (var rule in game.Rules)
+                {
+                    @rule
+                }
+            </span>
+            <br />
+            <form asp-controller="Game" asp-action="@game.Name" method="post">
+                <input class="btn btn-secondary" type="submit" value="Play" />
+            </form>
+        </div>
      }
 </div>
