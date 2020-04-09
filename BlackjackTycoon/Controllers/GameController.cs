@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlackjackTycoon.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlackjackTycoon.Controllers
@@ -11,50 +12,49 @@ namespace BlackjackTycoon.Controllers
     public class GameController : Controller
     {
 
-        /* We get here from the GameSetup.cshtml page. */
-        public IActionResult Index(GameSetupViewModel model)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public GameController(UserManager<ApplicationUser> userManager)
         {
-            /* At this point we should have everything needed to build the game object and begin playing.
-               We're using the validation provided by .NET but we'll want to add custom validation also. (i think) */ 
-            ViewBag.Game = model.GameName;
-            ViewBag.Money = model.PlayingMoney;
-            /* Switch case to check name of game they selected so we know what game view to load. This was added to combine game views. */
-            switch (model.GameName)
+            _userManager = userManager;
+        }
+
+        public IActionResult Coinflip(string coin, string bet, bool play = false)
+        {
+            /* Errors array */
+            ViewBag.Errors = new List<string>();
+
+            /* Get the current logged in user. */
+            ViewBag.userId = _userManager.GetUserId(HttpContext.User);
+            ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
+            ViewBag.User = user;
+
+            /* If play = true validate inputs + run game logic */
+            if (play)
             {
-                case "coinflip":
-                    return RedirectToAction("Coinflip", "Game");
+                /* validation */
+                if (coin == null) ViewBag.Errors.Add("Please select heads or tails.");
+                if (!int.TryParse(bet, out int i)) ViewBag.Errors.Add("The bet must be an integer.");
+                if (i > user.Bankroll) ViewBag.Errors.Add("You don't have enough money to place that bet.");
+                /* If any errors got added we'll return the view now */
+                if (ViewBag.Errors.Count >= 1) return View();
 
-                case "blackjack":
-                    return RedirectToAction("Blackjack", "Game");
+                /* game logic */
+                CoinflipGame coinflip = new CoinflipGame();
+                coinflip.Player = user;
 
-                default:
-                    Console.WriteLine("Default case");
-                    return View();
+                if (coinflip.Play(coin, int.Parse(bet)))
+                {
+                    ViewBag.GameResults = "Winner! You won $" + (int.Parse(bet)*2);
+                    ViewBag.LastGame = true;
+                }
+                else
+                {
+                    ViewBag.GameResults = "Loser! You lost $" + int.Parse(bet);
+                    ViewBag.LastGame = false;
+                }
             }
-        }
-        
-        /* This is where coinflip game logic is living */
-        [HttpPost]
-        public IActionResult PlayCoinflip()
-        {
-            Random random = new Random();
-            var n = random.Next(0, 2);
-            ViewBag.test = "Test";
-
-            /* After game logic serve the view again. */
-            return RedirectToAction("Coinflip", "Game");
-        }
-
-        public IActionResult PlayBlackjack()
-        {
-
-            /* After game logic serve the view again. */
-            return RedirectToAction("Blackjack", "Game");
-        }
-
-        /* This is where we serve the view */
-        public IActionResult Coinflip()
-        {
+            
             return View();
         }
 
