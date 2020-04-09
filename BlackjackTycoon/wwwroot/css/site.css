@@ -116,3 +116,6 @@ tr {
 	color:white;
 	font-weight:bolder;
 }
+#image_list {
+	display: none;
+}
