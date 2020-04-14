@@ -25,14 +25,14 @@ namespace BlackjackTycoon.Controllers
             return View();
         }
 
-        //public IActionResult About()
-        //{
-        //    ViewData["Message"] = "Your application description page.";
+		public IActionResult About()
+		{
+			ViewData["Message"] = "About the games.";
 
-        //    return View();
-        //}
+			return View();
+		}
 
-        public IActionResult Contact()
+		public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
