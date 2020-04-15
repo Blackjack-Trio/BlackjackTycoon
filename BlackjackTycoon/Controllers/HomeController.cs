@@ -8,6 +8,8 @@ using BlackjackTycoon.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using BlackjackTycoon.Data;
 
 namespace BlackjackTycoon.Controllers
 {
@@ -77,16 +79,26 @@ namespace BlackjackTycoon.Controllers
             ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
             ViewBag.User = user;
 
-            // Create a bank that the user goes to
-            ViewBag.Bank = new Bank("The Rich People's Bank of Richness");
-            return View();
+            // Create a bank that the user goes to and some flavortext
+            Bank bank = new Bank("The Rich People's Bank of Richness");
+            ViewBag.Header = "Welcome to " + bank.Name + "!";
+            ViewBag.Flavor = "You approach the teller. They greet you cordially and offer these loans:";
+            return View(bank);
         }
         
-        public IActionResult Borrow()
+        [HttpPost]
+        public IActionResult Borrow(decimal loanOption)
         {
             // This is where we make changes in the database...
             // We need to add money to the user's bankroll
             // We need to add money to the user's total borrowed (keeping track of how much they've borrowed)
+            //var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            //var manager = new UserManager(store)
+            ApplicationUser user = _userManager.FindByIdAsync(_userManager.GetUserId(HttpContext.User)).Result;
+            user.Bankroll += loanOption;
+            user.Borrowed += loanOption;
+            _userManager.UpdateAsync(user);
+            
             return View("Index");
         }
     }
