@@ -19,7 +19,7 @@ namespace BlackjackTycoon.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Coinflip(string coin, string bet, bool play = false)
+        public async Task<IActionResult> Coinflip(string coin, string bet, bool play = false)
         {
             /* Errors array */
             ViewBag.Errors = new List<string>();
@@ -53,6 +53,8 @@ namespace BlackjackTycoon.Controllers
                     ViewBag.GameResults = "Loser! You lost $" + int.Parse(bet);
                     ViewBag.LastGame = false;
                 }
+
+                IdentityResult result = await _userManager.UpdateAsync(user);
             }
             
             return View();
