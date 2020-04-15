@@ -31,3 +31,8 @@ window.onload = function () {
 		},
 		2000);
 };
+
+$("H1").hover(
+	function () {
+		alert("The mouse pointer is over the H1 element");
+	};
