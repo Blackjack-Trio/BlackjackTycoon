@@ -87,18 +87,14 @@ namespace BlackjackTycoon.Controllers
         }
         
         [HttpPost]
-        public IActionResult Borrow(decimal loanOption)
+        public async Task<IActionResult> BorrowAsync(decimal loanOption)
         {
-            // This is where we make changes in the database...
-            // We need to add money to the user's bankroll
-            // We need to add money to the user's total borrowed (keeping track of how much they've borrowed)
-            //var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            //var manager = new UserManager(store)
             ApplicationUser user = _userManager.FindByIdAsync(_userManager.GetUserId(HttpContext.User)).Result;
+            // Adding amount to user
             user.Bankroll += loanOption;
             user.Borrowed += loanOption;
-            _userManager.UpdateAsync(user);
-            
+            // Somehow this updates the user in the database
+            IdentityResult result = await _userManager.UpdateAsync(user);
             return View("Index");
         }
     }

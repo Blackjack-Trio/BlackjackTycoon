@@ -11,7 +11,7 @@
 <body>
     <h2>@ViewBag.Header</h2>
     <p>@ViewBag.Flavor</p>
-    @using (Html.BeginForm("Borrow", "Home", FormMethod.Post))
+    @using (Html.BeginForm("BorrowAsync", "Home", FormMethod.Post))
     {
         <table>
             @foreach (decimal option in Model.LoanOptions)
