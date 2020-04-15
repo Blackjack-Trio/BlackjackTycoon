@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlackjackTycoon.Models
 {
-    public class CoinflipDealer
+    public class CoinflipDealer : Dealer
     {
     }
 }
