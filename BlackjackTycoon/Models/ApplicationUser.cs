@@ -9,7 +9,7 @@ namespace BlackjackTycoon.Models
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
-        public int Bankroll { get; set; }
-        
+        public decimal Bankroll { get; set; }
+        public decimal Borrowed { get; set; }
     }
 }

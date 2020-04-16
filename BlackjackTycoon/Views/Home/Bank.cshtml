@@ -1,22 +1,44 @@
-﻿@{
+﻿@model Bank
+@{
     ViewData["Title"] = "Bank";
 }
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width"/>
-    <title>Bank</title>
+    <title>@ViewData["Title"]</title>
 </head>
 <body>
-    <h2>Welcome to @ViewBag.Bank.Name!</h2>
-    <p>You approach the bank teller. Here are the loans they are willing to offer...</p>
-    <form asp-action="Borrow" method="post">
+    <h2>@ViewBag.Header</h2>
+    <p>@ViewBag.Flavor</p>
+    @using (Html.BeginForm("BorrowAsync", "Home", FormMethod.Post))
+    {
+        <table>
+            @foreach (decimal option in Model.LoanOptions)
+            {
+                <tr>
+                    <td>
+                        @Html.RadioButton("LoanOption", option, false, new { @id = option })
+
+                        $@Html.Label("LoanOption", option.ToString())
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    <input type="submit" value="Borrow" />
+                </td>
+            </tr>
+        </table>
+        
+    }
+    @*<form asp-controller="@ViewBag.FormController" asp-action="@ViewBag.FormAction" method="post">
         @foreach (decimal loanOption in ViewBag.Bank.LoanOptions)
         {
-            <p><input type="radio" value="@loanOption" />&nbsp;@loanOption</p>
+            <p><input type="radio" value="@loanOption" name="loanOption"/>&nbsp;@loanOption</p>
         }
         <input type="submit"/>
-    </form>
+    </form>*@
 </body>
 </html>
 

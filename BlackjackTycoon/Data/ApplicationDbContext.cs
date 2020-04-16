@@ -13,5 +13,6 @@ namespace BlackjackTycoon.Data
             : base(options)
         {
         }
+
     }
 }
