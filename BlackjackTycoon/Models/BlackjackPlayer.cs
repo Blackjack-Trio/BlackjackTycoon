@@ -8,29 +8,29 @@ namespace BlackjackTycoon.Models
     public class BlackjackPlayer
     {
         // props
-        private ApplicationUser user;
-        private BlackjackHand hand;
-        private Game game;
+        public ApplicationUser User { get; set; }
+        public BlackjackHand Hand { get; set; }
+        public Game Game { get; set; }
 
         // constructors
         public BlackjackPlayer() { }
 
         public BlackjackPlayer(ApplicationUser user)
         {
-            this.user = user;
+            this.User = user;
         }
 
         // class methods
         public BlackjackHand getHand()
         {
-            return this.hand;
+            return this.Hand;
         }
 
         public void JoinGame(Game game)
         {
-            if (this.game == null)
+            if (this.Game == null)
             {
-                this.game = game;
+                this.Game = game;
             }
             else
             {
@@ -40,23 +40,23 @@ namespace BlackjackTycoon.Models
 
         public void LeaveGame()
         {
-            this.game = null;
+            this.Game = null;
         }
 
-        public void Bet(int amount)
+        public void Bet(decimal amount)
         {
-            if (game == null) throw new Exception("Player cannot bet if they are not part of a game.");
-            if (this.user.Bankroll < amount) throw new Exception("Player cannot bet more than they have.");
+            if (Game == null) throw new Exception("Player cannot bet if they are not part of a game.");
+            if (this.User.Bankroll < amount) throw new Exception("Player cannot bet more than they have.");
 
             // take bet amount from players bankroll.
-            this.user.Bankroll -= amount;
+            this.User.Bankroll -= amount;
         }
 
         public bool ShouldStandWith(BlackjackHand hand)
         {
             bool should = false;
 
-            if (hand.getValue() >= 16)
+            if (hand.GetValue() >= 16)
             {
                 should = true;
             }

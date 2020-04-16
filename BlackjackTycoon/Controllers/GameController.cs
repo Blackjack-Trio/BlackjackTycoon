@@ -75,28 +75,13 @@ namespace BlackjackTycoon.Controllers
 
         public IActionResult PlayBlackjack(string bet)
         {
-            BlackjackGame blackjack = new BlackjackGame();
-
             /* Get the current logged in user. */
             ViewBag.userId = _userManager.GetUserId(HttpContext.User);
             ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
             ViewBag.User = user;
 
-            /* validation */
-            ViewBag.Errors = new List<string>();
-
-            // checks if bet is an integer
-            if (!int.TryParse(bet, out int i)) ViewBag.Errors.Add("The bet must be an integer.");
-            // make sure the user has enough money to cover the bet
-            if (i > user.Bankroll) ViewBag.Errors.Add("You don't have enough money to place that bet.");
-            // bet must be greater than 0
-            if (i < 0) ViewBag.Errors.Add("You must bet more than $0");
-            /* If any errors got added to error list we'll return the view now */
-            if (ViewBag.Errors.Count >= 1) return View("Coinflip");
-
             // play blackjack
-            blackjack.Play();
-
+            BlackjackGame blackjack = new BlackjackGame();
 
             return View("Blackjack");
         }

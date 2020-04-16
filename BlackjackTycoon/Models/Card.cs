@@ -77,6 +77,8 @@ namespace BlackjackTycoon.Models
         public bool IsAce { get; set; }
         public bool IsFace { get; set; }
 
+        public Card() { }
+
         public Card(string rank, string suit, bool showing=false)
         {
             // Normalizing input...

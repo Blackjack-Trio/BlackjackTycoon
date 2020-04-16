@@ -8,11 +8,11 @@ namespace BlackjackTycoon.Models
     public class BlackjackGame : Game
     {
         // props
-        private BlackjackDealer dealer;
-        private BlackjackPlayer player;
-        private int min_bet;
-        private int max_bet;
-        private int deck_count;
+        public BlackjackDealer Dealer { get; set; }
+        public BlackjackPlayer Player { get; set; }
+        public decimal MinBet { get; set; }
+        public decimal MaxBet { get; set; }
+        public int DeckCount { get; set; }
 
         // constructors
         public BlackjackGame()
@@ -22,28 +22,22 @@ namespace BlackjackTycoon.Models
             Type = "Card";
         }
 
-        public BlackjackGame(int min_bet, int max_bet, int deck_count)
+        public BlackjackGame(decimal min_bet, decimal max_bet, int deck_count)
         {
-            this.min_bet = min_bet;
-            this.max_bet = max_bet;
-            this.deck_count = deck_count;
+            this.MinBet = min_bet;
+            this.MaxBet = max_bet;
+            this.DeckCount = deck_count;
 
             try
             {
-                this.dealer = new BlackjackDealer();
-                this.dealer.JoinGame(this);
+                this.Dealer = new BlackjackDealer();
+                this.Dealer.JoinGame(this);
             }
             catch (Exception ex)
             {
-                throw new Exception('could not create or add dealer to game: ' + ex);
+                throw new Exception("could not create or add dealer to game: " + ex);
             }
 
-        }
-
-        // class methods
-        internal void Play()
-        {
-            throw new NotImplementedException();
         }
     }
 }
