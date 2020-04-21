@@ -1,7 +1,113 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
+
+<script>
+	"use strict";
+	$(document).ready(function () {
+		$("#games h2").click(function (evt) {
+			$(this).toggleClass("minus");
+			if ($(this).attr("class") !== "minus") {
+				$(this).next().hide();
+			}
+			else {
+				$(this).next().show();
+			}
+			evt.preventDefault();  //cancel default action
+		}); //end click
+		//set focus on first tag
+		$("#games").find("a:first").focus();
+	}); //end ready 
+</script>
+<style>
+	#coinflip {
+		background: url(images/coin.png) no-repeat left center;
+		font-size: 120%;
+		padding: 1em 3em 1em 60px;
+		cursor: pointer;
+	}
+
+	#blackjack {
+		background: url(images/blackjack.png) no-repeat left center;
+		font-size: 120%;
+		padding: 1em 3em 1em 80px;
+		cursor: pointer;
+	}
+
+	#holdem {
+		background: url(images/holdem.png) no-repeat left center;
+		font-size: 120%;
+		padding: 1em 3em 1em 90px;
+		cursor: pointer;
+	}
+
+	h2.minus {
+		background: url(images/coin.png) no-repeat left center;
+	}
+
+	h3 {
+		padding: 1em 1em 1em 60px;
+	}
+
+	/*div {
+		display: none;
+	}*/
+
+	a {
+		color: black;
+		text-decoration: none;
+	}
+
+		a:focus, a:hover {
+			color: blue;
+		}
+
+	
+
+	div.open {
+		display: block;
+	}
+
+	p {
+		padding: .25em 0 1em 80px;
+	}
+</style>
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<p>Information about the Games.</p>
+<script>
+	"use strict";
+	$(document).ready(function () {
+		//$("#games h2").click(function (evt) {
+		//	$(this).toggleClass("minus");
+		//	if ($(this).attr("class") !== "minus") {
+		//		$(this).next().hide();
+		//	}
+		//	else {
+		//		$(this).next().show();
+		//	}
+		//	evt.preventDefault();  //cancel default action
+		//}); //end click
+		////set focus on first tag
+		$("#games").find("a:first").focus();
+	}); //end ready 
+</script>
+
+<main id="games">
+	<h1>Coin Flip game</h1>
+			<h2 id="coinflip"><a href="#">What is the coinflip game?</a></h2>
+			<div>
+				<h3>The coinflip game</h3>
+				<p>Play the coinflip game. Choose either heads or tails. If you choose correctly you win, or else you lose. Your chances are 50/50.</p>
+			</div>
+			<h2 id="blackjack"><a href="#">What is BlackJack?</a></h2>
+			<div>
+				<h3>BlackJack</h3>
+				<p>To win a blackjack, you are dealt two cards. Sum the cards and get closer to 21 than the dealer without going over.</p>
+			</div>
+			<h2 id="holdem"><a href="#">What is Hold'em Poker?</a></h2>
+			<div>
+				<h3>Hold'em Poker</h3>
+				<p>You are dealt two cards. Use your cards with the community cards on the board to make the best five card poker hand. Beat the dealer and you win.</p>
+			</div>
+</main>
