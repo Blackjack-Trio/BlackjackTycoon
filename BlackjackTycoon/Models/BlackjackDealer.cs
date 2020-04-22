@@ -42,7 +42,7 @@ namespace BlackjackTycoon.Models
         {
             Card card = new Card();
 
-            if (this.Deck.Cards.Count < 1)
+            if (this.Deck == null || this.Deck.Cards.Count <= 1)
             {
                 this.Deck = new Deck();
                 this.Deck.Shuffle();
@@ -113,11 +113,6 @@ namespace BlackjackTycoon.Models
             }
 
             player.User.Bankroll += winnings;
-        }
-
-        public BlackjackHand GetHand()
-        {
-            return this.Hand;
         }
 
     }

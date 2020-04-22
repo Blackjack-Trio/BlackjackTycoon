@@ -8,8 +8,8 @@ namespace BlackjackTycoon.Models
     public class BlackjackGame : Game
     {
         // props
-        public BlackjackDealer Dealer { get; set; }
         public BlackjackPlayer Player { get; set; }
+        public BlackjackDealer Dealer { get; set; }
         public decimal MinBet { get; set; }
         public decimal MaxBet { get; set; }
         public int DeckCount { get; set; }
@@ -39,5 +39,17 @@ namespace BlackjackTycoon.Models
             }
 
         }
+
+        public void AddPlayer(BlackjackPlayer player)
+        {
+            player.JoinGame(this);
+            this.Player = player;
+        }
+
+        public BlackjackDealer GetDealer()
+        {
+            return this.Dealer;
+        }
+
     }
 }

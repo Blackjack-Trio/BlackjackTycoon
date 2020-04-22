@@ -7,6 +7,7 @@ namespace BlackjackTycoon.Models
 {
     public class CoinflipGame:Game
     {
+        public ApplicationUser Player { get; set; }
 
         public CoinflipGame()
         {

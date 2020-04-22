@@ -31,15 +31,20 @@ namespace BlackjackTycoon.Controllers
             ViewBag.Errors = new List<string>();
 
             // checks the user selected heads or tails
-            if (selection == null) ViewBag.Errors.Add("Please select heads or tails.");
+            if (selection == null)
+                ViewBag.Errors.Add("Please select heads or tails.");
             // checks if bet is an integer
-            if (!int.TryParse(bet, out int i)) ViewBag.Errors.Add("The bet must be an integer.");
+            if (!int.TryParse(bet, out int i))
+                ViewBag.Errors.Add("The bet must be an integer.");
             // make sure the user has enough money to cover the bet
-            if (i > user.Bankroll) ViewBag.Errors.Add("You don't have enough money to place that bet.");
+            if (i > user.Bankroll)
+                ViewBag.Errors.Add("You don't have enough money to place that bet.");
             // bet must be greater than 0
-            if (i < 0) ViewBag.Errors.Add("You must bet more than $0");
+            if (i < 0)
+                ViewBag.Errors.Add("You must bet more than $0");
             /* If any errors got added to error list we'll return the view now */
-            if (ViewBag.Errors.Count >= 1) return View("Coinflip");
+            if (ViewBag.Errors.Count >= 1)
+                return View("Coinflip");
 
             // play coinflip
             CoinflipGame coinflip = new CoinflipGame();
@@ -80,8 +85,36 @@ namespace BlackjackTycoon.Controllers
             ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
             ViewBag.User = user;
 
-            // play blackjack
-            BlackjackGame blackjack = new BlackjackGame();
+            // set up game + player objects
+            BlackjackGame blackjack = new BlackjackGame(50, 5000, 6);
+            BlackjackPlayer player = new BlackjackPlayer(user);
+            blackjack.AddPlayer(player);
+
+            /* Validation */
+            ViewBag.Errors = new List<string>();
+            if (!int.TryParse(bet, out int i))
+                ViewBag.Errors.Add("The bet must be an integer.");  // checks if bet is an integer
+            /* If any errors got added to error list we'll return the view now */
+            if (ViewBag.Errors.Count >= 1)
+                return View("Coinflip");
+
+            // take players bet
+            blackjack.Player.Bet(i); // i == bet after validation.
+
+            // display hand values
+            ViewBag.PlayerHandValue = blackjack.Player.Hand.GetValue();
+            ViewBag.DealerHandValue = blackjack.Dealer.Hand.GetValue();
+
+            // check if player got a blackjack
+            if (ViewBag.PlayerHand.Blackjack)
+            {
+                blackjack.Dealer.Payout(blackjack.Player); // we need an optional blackjack parameter on this method right?
+                ViewBag.Results = "You got a Blackjack!";
+            }
+            else
+            {
+                ViewBag.CanHit = ViewBag.PlayerHand.CanHit();
+            }
 
             return View("Blackjack");
         }
@@ -92,6 +125,8 @@ namespace BlackjackTycoon.Controllers
             ViewBag.userId = _userManager.GetUserId(HttpContext.User);
             ApplicationUser user = _userManager.FindByIdAsync(ViewBag.userId).Result;
             ViewBag.User = user;
+
+            ViewBag.NewGame = true;
 
             return View();
         }

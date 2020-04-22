@@ -30,11 +30,27 @@ namespace BlackjackTycoon.Models
             }
         }
 
+        //public void Shuffle()
+        //{
+        //    // I found this code from here: https://stackoverflow.com/questions/5383498/shuffle-rearrange-randomly-a-liststring
+        //    // Not entirely sure how it works but it does
+        //    Cards.OrderBy(item => Random.Next());
+        //}
+
+        // source: https://stackoverflow.com/revisions/1262619/1
         public void Shuffle()
         {
-            // I found this code from here: https://stackoverflow.com/questions/5383498/shuffle-rearrange-randomly-a-liststring
-            // Not entirely sure how it works but it does
-            Cards.OrderBy(item => Random.Next());
+            List<Card> list = this.Cards;
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Card value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
 
         public Card Draw(int cardCount=1, bool faceUp=false)

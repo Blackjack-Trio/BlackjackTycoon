@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace BlackjackTycoon.Models
 {
-    public class BlackjackPlayer
+    public class BlackjackPlayer : Player
     {
         // props
         public ApplicationUser User { get; set; }
         public BlackjackHand Hand { get; set; }
-        public Game Game { get; set; }
+        public BlackjackGame Game { get; set; }
 
         // constructors
         public BlackjackPlayer() { }
@@ -21,12 +21,12 @@ namespace BlackjackTycoon.Models
         }
 
         // class methods
-        public BlackjackHand getHand()
+        public BlackjackHand GetHand()
         {
             return this.Hand;
         }
 
-        public void JoinGame(Game game)
+        public void JoinGame(BlackjackGame game)
         {
             if (this.Game == null)
             {
@@ -45,11 +45,23 @@ namespace BlackjackTycoon.Models
 
         public void Bet(decimal amount)
         {
-            if (Game == null) throw new Exception("Player cannot bet if they are not part of a game.");
+            if (this.Game == null) throw new Exception("Player cannot bet if they are not part of a game.");
             if (this.User.Bankroll < amount) throw new Exception("Player cannot bet more than they have.");
 
             // take bet amount from players bankroll.
             this.User.Bankroll -= amount;
+
+            // deal hand to player
+            BlackjackHand hand = new BlackjackHand(amount);
+
+            Card firstCard = this.Game.Dealer.Deal();
+            hand.Hit(firstCard);
+
+            Card secondCard = this.Game.Dealer.Deal();
+            hand.Hit(secondCard);
+
+            // assign that hand to the player.
+            this.Hand = hand;
         }
 
         public bool ShouldStandWith(BlackjackHand hand)

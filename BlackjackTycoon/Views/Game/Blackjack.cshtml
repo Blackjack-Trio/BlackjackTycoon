@@ -13,22 +13,54 @@
     <p>Choose how much you want to bet to begin.</p>
 </div>
 
-<div class="game-errors">
-    @if (ViewBag.Errors != null)
-    {
+@if (ViewBag.Errors != null)
+{ 
+    <div class="game-errors">
         @foreach (var error in ViewBag.Errors)
         {
             <p class="alert alert-danger">@error</p>
         }
-    }
-</div>
+    </div>
+}
 
-<form asp-controller="Game" asp-action="PlayBlackjack" method="post">
-    <div class="form-group">
-        <label for="bet">Bet:</label>
-        <input type="text" name="bet" class="form-control" />
+@if (ViewBag.Results != null)
+{
+    <div class="game-results">
+        <p class="alert alert-info">@ViewBag.Results</p>
     </div>
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" value="Start" />
+}
+
+@if (ViewBag.NewGame)
+{
+    <form asp-controller="Game" asp-action="PlayBlackjack" method="post">
+        <div class="form-group">
+            <label for="bet">Bet:</label>
+            <input type="text" name="bet" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Start" />
+        </div>
+    </form>
+}
+
+@if (ViewBag.PlayerHandValue != null && ViewBag.DealerHandValue != null)
+{
+    <div class="blackjack-game">
+        <p>Dealer Hand: @ViewBag.DealerHandValue</p>
+        <p>Player Hand: @ViewBag.PlayerHandValue</p>
     </div>
-</form>
+}
+
+@if (ViewBag.CanHit != null)
+{
+    <form asp-controller="Game" asp-action="Hit" method="post">
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Hit" />
+        </div>
+    </form>
+    <form asp-controller="Game" asp-action="Stand" method="post">
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Stand" />
+        </div>
+    </form>
+}
