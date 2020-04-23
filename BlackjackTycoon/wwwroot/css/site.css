@@ -6,7 +6,7 @@ html {
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    /*background-color:red;*/
+    background-color:red;
 }
 
 /* Wrapping element */
@@ -14,7 +14,8 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    /*background-color:black*/
+    background-color:black;
+	color:white;
 }
 
 /* Carousel */
@@ -118,5 +119,7 @@ tr {
 #image_list {
 	display: none;
 }
+
+
 
 
